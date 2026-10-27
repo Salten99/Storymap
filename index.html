@@ -258,16 +258,6 @@ footer{background:var(--leaf-soft);padding-block:24px 56px;color:var(--muted);fo
 footer .credits{display:grid;gap:8px;padding-block:8px 20px;margin-bottom:16px;border-bottom:1px solid color-mix(in srgb,var(--field) 25%,transparent)}
 footer .credits p{margin:0;max-width:62ch;color:var(--ink)}
 
-/* Pilot goals: four parallel aims, not a sequence, so no numbering. */
-.goals{margin-top:56px}
-.goals .section-head{max-width:var(--measure)}
-.goals h3{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700}
-.goals-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 28px}
-.goals-list li{border-top:3px solid var(--field);padding-top:14px;display:grid;gap:6px;align-content:start;min-width:0}
-.goals-list h4{font:700 1.1rem/1.2 var(--f-display)}
-.goals-list p{margin:0;font-size:.95rem;line-height:1.6;color:var(--muted)}
-@media (max-width:860px){ .goals-list{grid-template-columns:repeat(2,minmax(0,1fr))} }
-@media (max-width:520px){ .goals-list{grid-template-columns:1fr} }
 footer .row{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
 
 /* Lightbox: fades and settles in from 97% scale, exits faster than it enters. */
@@ -338,10 +328,9 @@ html.lenis,html.lenis body{height:auto}
 <main>
 <section class="wrap">
   <div class="col prose">
-    <h2 class="sr-only">About the project</h2>
-    <p class="lede">In Haiti today, there is a food supply issue. The current system relies mostly on imported food to feed people. This heavy reliance on importing food leaves little growing room for Haitian farmers and the systems required to support them.</p>
-    <p>School children often feel this gap first, and for many families a school meal is a large incentive to send their children to school. Together, these issues center on one key goal: helping Haitian schools reliably source food from Haitian farmers. Doing so supports farmers, ensures children are consistently fed, boosts school attendance, and strengthens the entire system so it can be sturdy enough to hold up under shocks like conflict, climate events, or market disruption.</p>
-    <p>The Crisis-Resilient School Meals initiative was started to tackle this at the root. It's a pilot program aiming to strengthen the pipeline on how local food reaches students in Haiti's Central Plateau. The initiative brings together a range of partners, each contributing a different piece, into one multifaceted approach to a shared goal: a school meal system that feeds kids with as much Haitian-grown agriculture as possible.</p>
+    <h2 class="sr-only">About the trip</h2>
+    <p class="lede">In July 2026, a small Global Food Institute team spent a week in Haiti with the partners behind the Crisis-Resilient School Meals pilot, which aims to put food grown by Haitian farmers into Haitian school meals.</p>
+    <p>We followed that food from the field to the school kitchen across the Central Plateau, then joined the partners for two days of planning in Caracol. This is what we saw, and what comes next.</p>
   </div>
 
   <div class="wide">
@@ -356,18 +345,6 @@ html.lenis,html.lenis body{height:auto}
         <li><span class="chain-top"><span class="chain-n">3</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11h16v2.5a6.5 6.5 0 0 1-6.5 6.5h-3A6.5 6.5 0 0 1 4 13.5z"/><path d="M2 11h20"/><path d="M9 3.5c-1 1.4 1 2.6 0 4.5"/><path d="M14 3.5c-1 1.4 1 2.6 0 4.5"/></svg></span><h4>School kitchen</h4><p>Summits Education helps get the food to the schools that need it, where kitchen staff cook it into daily meals. One kitchen we visited serves about 350 a day.</p></li>
         <li><span class="chain-top"><span class="chain-n">4</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h18c0 4.6-4 8-9 8s-9-3.4-9-8z"/><path d="M16.5 3 13 11"/><path d="M8 12c.6-1.6 1.8-2.4 3-2.4"/></svg></span><h4>Student</h4><p>A reliable meal brings children to school and helps them learn. Each local purchase also keeps money with Haitian farmers.</p></li>
       </ol>
-    </div>
-
-
-    <div class="goals" aria-labelledby="goals-h">
-      <div class="section-head"><h3 id="goals-h">What the pilot is working toward</h3>
-        <p class="section-dek">Haiti's school meals have long depended on donor funding and imported food. Over two school years, the pilot is testing whether coordinated investment across the school meal and food system can put Haitian harvests on school trays instead.</p></div>
-      <ul class="goals-list">
-        <li><h4>Feed kids reliably</h4><p>Locally sourced meals for about 48,000 students, with better monitoring to cut food loss and smooth out logistics.</p></li>
-        <li><h4>Strengthen value chains</h4><p>More productive farms and more aggregation, financing, storage, and quality control, so the system relies less on donors.</p></li>
-        <li><h4>Hold up in a crisis</h4><p>Shared infrastructure, including a Community Collection Center and a model Resilience Hub school that can serve as an emergency response point.</p></li>
-        <li><h4>Learn for scale</h4><p>Food systems mapping, community-engaged research, and early-warning analytics that show whether the model works, and why.</p></li>
-      </ul>
     </div>
   </div>
 </section>
