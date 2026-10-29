@@ -1,4 +1,4 @@
-Haiti Conference and Coordination Work Trip
+Haiti Workshop and Coordination Work Trip
 A Global Food Institute field report on the Crisis-Resilient School Meals (CRSM) pilot, July 2026.
 
 TO VIEW

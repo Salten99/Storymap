@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Haiti Conference and Coordination Work Trip</title>
-<meta name="description" content="The Global Food Institute team's 2026 visit to Haiti: partner meetings across the Central Plateau and a coordination conference for the Crisis-Resilient School Meals initiative.">
+<title>Haiti Workshop and Coordination Work Trip</title>
+<meta name="description" content="The Global Food Institute team's 2026 visit to Haiti: partner meetings across the Central Plateau and a coordination workshop for the Crisis-Resilient School Meals initiative.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..500&display=swap">
 <style>
-/* Layout: photo cover → intro & partners → scroll-driven route map (sticky map + stop cards) → field journal → conference.
+/* Layout: photo cover → intro & partners → scroll-driven route map (sticky map + stop cards) → field journal → workshop.
    Palette: a light page drawn from Haiti's green interior — morning mist, banana leaf, deep canopy, with mango as the one warm highlight. */
 :root{
   --paper:#F5F8F1; --card:#FFFFFF; --ink:#1B2A21; --muted:#55665A; --line:#D5E0CF;
@@ -201,9 +201,12 @@ section{padding-block:clamp(48px,8vw,96px)}
 .card .head{padding:20px 22px 16px;display:grid;gap:10px}
 .card-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:0}
 .card .hint{font:400 .9rem/1.5 var(--f-display);color:var(--muted)}
-.media{position:relative;aspect-ratio:4/3;max-height:72vh;width:100%;background:var(--leaf-soft);max-width:100%}
-.media img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:opacity 220ms ease, filter 220ms ease}
-.media.tall{aspect-ratio:3/4;width:min(100%,calc(72vh * 3 / 4));margin-inline:auto}
+/* Every photo sits in the same 4:3 frame. Photos that don't fill it are shown whole, with a soft
+   blurred copy of themselves behind, so nothing is cropped and portrait shots stay upright. */
+.frame{position:relative;aspect-ratio:4/3;width:100%;overflow:hidden;background:var(--leaf-soft);isolation:isolate}
+.frame::before{content:"";position:absolute;inset:-28px;z-index:-1;background:var(--bg) center/cover no-repeat;filter:blur(16px) saturate(1.05);opacity:.75}
+.frame img{width:100%;height:100%;object-fit:contain;cursor:zoom-in}
+.media img{transition:opacity 220ms ease, filter 220ms ease}
 .media img.swap{opacity:0;filter:blur(4px)}
 .media .pager{position:absolute;right:10px;bottom:10px;display:flex;gap:6px}
 .media .pager button{width:44px;height:44px;border-radius:50%;border:0;background:rgba(14,38,24,.72);color:#fff;display:grid;place-items:center;cursor:pointer;
@@ -227,17 +230,13 @@ section{padding-block:clamp(48px,8vw,96px)}
 .leaflet-control-attribution{font-size:10px}
 
 /* Journal */
-.journal .chapter{margin-top:clamp(48px,7vw,80px)}
-.journal .chapter:first-child{margin-top:0}
-.chapter h3{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700;margin-bottom:18px}
-.chapter-meta{margin:-8px 0 18px;font:600 .92rem/1.4 var(--f-display);color:var(--leaf)}
 img[data-zoom]:focus-visible{outline-offset:4px}
 .btn-ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 /* Partners: full descriptions close the page, after the story. */
 .partners-section{padding-top:clamp(40px,6vw,72px)}
 .partners-section .partners{margin-top:0}
 /* Closing: where the pilot goes next */
-.next{margin-top:clamp(56px,8vw,96px)}
+.next{margin-top:0}
 .next h2{font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:700;margin-bottom:18px}
 .pubs{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
 .pubs li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:4px}
@@ -245,14 +244,35 @@ img[data-zoom]:focus-visible{outline-offset:4px}
 @media (hover:hover){ .pubs a:hover{color:var(--leaf);text-decoration:underline} }
 .pubs span{font:400 .9rem/1.5 var(--f-display);color:var(--muted)}
 .prose::after{content:"";display:table;clear:both}
-figure.ph{margin:0 0 1.2em}
-figure.ph img{width:100%;border-radius:10px;cursor:zoom-in;background:var(--leaf-soft)}
+figure.ph{margin:0}
+figure.ph .frame{border-radius:10px}
+figure.ph.natural img{width:100%;border-radius:12px;cursor:zoom-in;background:var(--leaf-soft)}
 figure.ph figcaption{font:400 .86rem/1.5 var(--f-display);color:var(--muted);margin-top:8px}
-figure.float-end{float:right;width:min(42%,300px);margin:.3em 0 1em 28px}
-figure.float-start{float:left;width:min(42%,300px);margin:.3em 28px 1em 0}
-figure.full{margin:2em 0}
+figure.full{margin:clamp(32px,5vw,56px) 0 0}
+
+/* "What we took away" dropdown on each stop card */
+:root{interpolate-size:allow-keywords}
+.takeaways{border-top:1px solid var(--line);margin:0 22px 6px}
+.takeaways summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:14px 0;font:700 1rem/1.3 var(--f-display);color:var(--canopy);border-radius:6px}
+.takeaways summary::-webkit-details-marker{display:none}
+.takeaways summary .btn-ico{width:18px;height:18px;color:var(--leaf);transition:transform 220ms var(--ease-out)}
+.takeaways[open] summary .btn-ico{transform:rotate(90deg)}
+@media (hover:hover){ .takeaways summary:hover{color:var(--leaf)} }
+.takeaways::details-content{block-size:0;overflow:hidden;transition:block-size 320ms var(--ease-out), content-visibility 320ms allow-discrete}
+.takeaways[open]::details-content{block-size:auto}
+.takeaway-body{display:grid;gap:16px;padding:2px 0 20px}
+.takeaway-body p{margin:0;font-size:1rem;line-height:1.65}
+.takeaway-body figure.ph{margin:4px 0}
+
+/* Back link to the main project page */
+.back-link{position:absolute;z-index:3;top:calc(16px + env(safe-area-inset-top,0px));left:var(--gutter);display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px 8px 10px;border-radius:999px;background:rgba(14,38,24,.55);color:#fff;text-decoration:none;font:600 .88rem/1.3 var(--f-display);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:background-color 160ms ease}
+.back-link .btn-ico{width:18px;height:18px}
+@media (max-width:600px){ .back-link .back-long{display:none} }
+@media (hover:hover){ .back-link:hover{background:rgba(14,38,24,.8)} }
+.closing{padding-top:clamp(40px,6vw,72px)}
 .full-bleed{max-width:1120px;margin-inline:auto}
-.big{font-size:1.18rem;line-height:1.66}
 
 footer{background:var(--leaf-soft);padding-block:24px 56px;color:var(--muted);font:400 .92rem/1.5 var(--f-display)}
 footer .credits{display:grid;gap:8px;padding-block:8px 20px;margin-bottom:16px;border-bottom:1px solid color-mix(in srgb,var(--field) 25%,transparent)}
@@ -284,7 +304,6 @@ dialog button{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right
   .chain-steps li:nth-child(2)::after{content:none}
 }
 @media (max-width:520px){
-  figure.float-end,figure.float-start{float:none;width:100%;margin:1.2em 0}
   .logos{grid-template-columns:repeat(2,minmax(0,1fr))}
   .chain-steps{grid-template-columns:1fr}
   .chain-steps li:not(:last-child)::after{right:auto;left:calc(50% - 8px);top:auto;bottom:-19px;transform:rotate(90deg)}
@@ -299,6 +318,7 @@ html.lenis,html.lenis body{height:auto}
   *{animation:none!important;scroll-behavior:auto!important}
   .pin,.media .pager button,.overview-list button,dialog button{transition:none!important}
   dialog,dialog[open]{transform:none!important}
+  .takeaways::details-content,.takeaways summary .btn-ico{transition:none!important}
 }
 </style>
 </head>
@@ -312,9 +332,10 @@ html.lenis,html.lenis body{height:auto}
 <div class="jungle jungle-l" aria-hidden="true"><svg viewBox="0 0 320 1000" preserveAspectRatio="xMinYMid slice" focusable="false"><use href="#j-leaf" class="j-canopy" transform="translate(-40 110) rotate(-16) scale(1.15)"/><use href="#j-frond" class="j-leaf" transform="translate(-10 330) rotate(8)"/><use href="#j-leaf" class="j-leaf" transform="translate(-30 420) rotate(14) scale(.95)"/><use href="#j-leaf" class="j-canopy" transform="translate(-50 640) rotate(-26) scale(1.3)"/><use href="#j-frond" class="j-field" transform="translate(-14 840) rotate(-6) scale(.85)"/><use href="#j-stalk" class="j-field" transform="translate(70 1000)"/></svg></div>
 <div class="jungle jungle-r" aria-hidden="true"><svg viewBox="0 0 320 1000" preserveAspectRatio="xMinYMid slice" focusable="false"><use href="#j-frond" class="j-field" transform="translate(-10 170) rotate(-4) scale(.9)"/><use href="#j-leaf" class="j-leaf" transform="translate(-36 300) rotate(-20) scale(1.1)"/><use href="#j-leaf" class="j-canopy" transform="translate(-44 520) rotate(18) scale(1.2)"/><use href="#j-frond" class="j-leaf" transform="translate(-12 700) rotate(10) scale(1.05)"/><use href="#j-stalk" class="j-field" transform="translate(95 1000) scale(.9)"/><use href="#j-leaf" class="j-canopy" transform="translate(-30 930) rotate(-34) scale(.9)"/></svg></div>
 <header class="cover">
+  <a class="back-link" href="https://globalfoodinstitute.gwu.edu/leveraging-school-meals-crisis-resilience-haiti-0"><svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6"/></svg>Crisis-Resilient School Meals<span class="back-long"> at the Global Food Institute</span></a>
   <img id="coverImg" alt="The Global Food Institute team in Haiti" fetchpriority="high">
   <div class="inner wrap"><div class="wide">
-    <h1>Haiti Conference and Coordination Work Trip</h1>
+    <h1>Haiti Workshop and Coordination Work Trip</h1>
     <p class="sub">From field to meals</p>
     <div class="meta"><span>Field report</span><span>July 2026</span><span>Nord, Centre, and Nord-Est</span><span>7 stops</span></div>
   </div></div>
@@ -369,8 +390,8 @@ html.lenis,html.lenis body{height:auto}
 <section class="wrap" style="padding-bottom:28px">
   <div class="col">
     <div class="section-head"><h2>One week across northern Haiti</h2></div>
-    <p class="trip-note">This past July a small contingent from the Global Food Institute took a week to go to Haiti in order to meet with partners in person who are working in country. The work trip was aimed at meetings and visiting project sites across the Central Plateau, then closing out the week with a conference that brought representatives from six different contributing organizations together to review progress and coordinate on what the next steps of the project look like.</p>
-    <p class="skip-tour"><a href="#journal">Skip the route tour</a></p>
+    <p class="trip-note">This past July a small contingent from the Global Food Institute took a week to go to Haiti in order to meet with partners in person who are working in country. The work trip was aimed at meetings and visiting project sites across the Central Plateau, then closing out the week with a workshop that brought representatives from six different contributing organizations together to review progress and coordinate on what the next steps of the project look like.</p>
+    <p class="skip-tour"><a href="#next">Skip ahead to what comes next</a></p>
   </div>
 </section>
 
@@ -387,57 +408,9 @@ html.lenis,html.lenis body{height:auto}
   <path class="h-mid" fill="url(#rows2)" d="M0,80 C120,58 260,60 380,76 C520,94 640,62 780,66 C920,70 1040,88 1200,72 L1200,110 L0,110Z"/>
   <path class="h-front" fill="url(#rows)" d="M0,96 C200,74 380,86 560,94 C760,104 900,74 1200,90 L1200,110 L0,110Z"/>
 </svg>
-<section class="wrap journal" id="journal">
+<section class="wrap closing" id="next" aria-labelledby="next-h">
   <div class="col">
-    <div class="section-head"><h2>What we took away</h2><p class="section-dek">The route showed us each link in the chain that carries Haitian harvests to school meals: the farmers who grow the food, the depot that gathers it, the kitchens that cook it, and the partners working to make it last. These are the moments that stayed with us.</p></div>
-
-    <div class="chapter prose">
-      <h3>Into the Central Plateau</h3>
-      <p class="chapter-meta">Days 1–3, Centre</p>
-      <figure class="ph float-end" data-photo="64b0d917-0255-44da-bebf-3100ee184fe6.jpeg" data-cap="The view from our hotel in Hinche. The town sits in the middle of the Central Plateau, an inland farming region of small plots and rolling hills, and was our base for two days of site visits."></figure>
-      <p class="big">This trip started in the north at the city of Cap-Haïtien, where we landed. After a quick breakfast of Haitian spaghetti we hit the road towards the Central Plateau. After a scenic, bumpy four hours we arrived in Hinche, a city in the Central Plateau. This hotel was our home base for the next two days while we were visiting different sites in the area; the local Acceso depot and two different schools that were a part of the Summits program.</p>
-    </div>
-  </div>
-  <div class="full-bleed"><figure class="ph full" data-photo="46acc3d5-d89c-4a2c-addb-3c63c16ecbc2.jpeg" data-cap="Meeting with smallholder farmers who sell through Acceso. They described what they grow, how their harvests reach the depot, and what makes selling to schools worth it for them."></figure></div>
-  <div class="col">
-    <div class="chapter prose" style="margin-top:0">
-      <p class="big">We met with local farmers who were working with Acceso and discussed how and why they like this program. This meeting was very helpful in better understanding the supply chain from smallholder farmer to school children's meals. We also got to see part of the process ourselves and hear firsthand about what is going on and what can be improved.</p>
-    </div>
-
-    <div class="chapter prose">
-      <h3>From farm to depot</h3>
-      <p class="chapter-meta">Thomonde, Acceso depot, Aggregation</p>
-      <figure class="ph float-start" data-photo="nII2zjOXa99Ixbtx03cWc.jpeg" data-cap="Sacks of peanuts at the Acceso depot. Harvests from many small farms are pooled here so they can be sold in the volumes that schools and other buyers need."></figure>
-      <p class="crop-note"><span class="eyebrow">In storage during our visit</span> <span class="crop"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19c2-8 7-13 16-15-1.5 9-7 14-16 15z"/><circle cx="9" cy="14.5" r="1.4"/><circle cx="12.4" cy="11" r="1.4"/><circle cx="15.6" cy="7.6" r="1.4"/></svg>Black beans</span> <span class="crop"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2c2.6 0 4.3 2 4.3 4.3 0 1.6-.9 2.5-.9 4.5s.9 2.9.9 4.5c0 2.3-1.7 4.3-4.3 4.3s-4.3-2-4.3-4.3c0-1.6.9-2.5.9-4.5s-.9-2.9-.9-4.5c0-2.3 1.7-4.3 4.3-4.3z"/><path d="M10.5 7.5h.01M13.5 9h.01M10.5 15h.01M13.5 16.5h.01"/></svg>Peanuts</span></p>
-      <p>This is the Acceso depot for the area. Acceso runs depots across the country wherever it works. Each one is a collection point for local farmers: their harvests are pooled here, then shipped to wherever the order is going, whether that's a market, a school, or another buyer.</p>
-    </div>
-
-    <div class="chapter prose">
-      <h3>Two schools</h3>
-      <p class="chapter-meta">Summits Education program, School meals</p>
-      <figure class="ph float-end" data-photo="e93c60eb-8eae-47f0-8e5c-a91cc4d8bd7b.jpeg" data-cap="The kitchen at the first school, where staff cook about 350 meals a day. Every ingredient bought locally here is a sale for a Haitian farmer."></figure>
-      <p>Our first school visit, to <a href="https://www.summits.org/school/communautaire-saint-paul-morne-thomonde" target="_blank" rel="noopener noreferrer">École Communautaire Saint Paul</a> in Morne Thomonde, happened to coincide with a teacher training seminar. Compared with other schools in the region, this one was relatively well built, though it still faced its share of challenges. Staff emphasized how much school meals matter. For many families, a guaranteed meal is a strong reason to send children to school, and students who aren't hungry are better able to concentrate and learn.</p>
-      <figure class="ph" data-photo="36b7d2fa-a881-4597-98ed-ba40ff532988.jpeg" data-cap="The second school, where much of the campus is still open-air. New buildings will add classrooms along with space to store and prepare food."></figure>
-      <p>The second school, <a href="https://www.summits.org/school/communautaire-nouvelle-generation-moge" target="_blank" rel="noopener noreferrer">École Communautaire Nouvelle Génération</a> in Mogé, was a sharp contrast to the first. It had far less infrastructure, but the site was busy with major construction. Once finished, the new buildings will make room for more students and give the school modern spaces for storing and preparing food, a big step toward making daily meals more reliable.</p>
-      <figure class="ph" data-photo="b2a4a79d-dbae-45d1-837a-8c9fc70cc497.jpeg" data-cap="The visiting team with the school principal and the local benefactor (front) who donated his own land so the school could grow."></figure>
-      <p>Much of the school's growth is thanks to the man standing in front. A member of the local community, he donated his own land so the school could expand. Education matters deeply to him, and he took it upon himself to help build a campus where students can learn and count on a daily meal.</p>
-    </div>
-
-    <div class="chapter prose">
-      <h3>Meds &amp; Food for Kids</h3>
-      <p class="chapter-meta">Outside Cap-Haïtien, Nord, Processing</p>
-      <figure class="ph float-end" data-photo="zADd3-utBTmINcTdiw3W6.jpeg" data-cap="Meds &amp; Food for Kids, outside Cap-Haïtien. The factory turns peanuts into ready-to-use therapeutic food, and trains local farmers who supply it."></figure>
-      <p class="crop-note"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2c2.6 0 4.3 2 4.3 4.3 0 1.6-.9 2.5-.9 4.5s.9 2.9.9 4.5c0 2.3-1.7 4.3-4.3 4.3s-4.3-2-4.3-4.3c0-1.6.9-2.5.9-4.5s-.9-2.9-.9-4.5c0-2.3 1.7-4.3 4.3-4.3z"/><path d="M10.5 7.5h.01M13.5 9h.01M10.5 15h.01M13.5 16.5h.01"/></svg><span class="eyebrow">Common thread</span> The same crop we saw stacked at the Acceso depot, the peanut, is the base of Meds &amp; Food for Kids' main product.</p>
-      <p>Meds &amp; Food for Kids was founded in 2003 by pediatrician Dr. Patricia Wolff to fight child malnutrition in Haiti. Its main products are peanut-based therapeutic foods that need no refrigeration or clean water to use. Its factory outside Cap-Haïtien opened in 2012. It produces all the therapeutic food used in Haiti and ships to 14 other countries through UNICEF. Run by a team of nearly 100 and supported by the local farmers it trains, the organization has treated more than one million children and mothers.</p>
-    </div>
-
-    <div class="chapter prose">
-      <h3>The conference</h3>
-      <p class="chapter-meta">Caracol, Nord-Est, 2 days</p>
-      <p>The conference brought the partner organizations together for two days of meetings and breakout sessions. We reviewed the work done so far, but most of the time went to moving the project forward and agreeing on next steps.</p>
-    </div>
-
-    <div class="next" aria-labelledby="next-h">
+    <div class="next">
       <h2 id="next-h">What comes next</h2>
       <div class="prose">
         <p>The pilot runs for two school years, with the aim of serving locally sourced meals to about 48,000 students. Alongside the meals, the Global Food Institute and Chibas are building the evidence for whether the model works: mapping how food, money, and decisions move across the Central Plateau, working with farmers, cooks, and community members as co-researchers, and developing early-warning tools that flag supply disruptions, price spikes, or falling meal attendance before they turn into a crisis.</p>
@@ -449,8 +422,42 @@ html.lenis,html.lenis body{height:auto}
       </ul>
     </div>
   </div>
-  <div class="full-bleed"><figure class="ph full" data-photo="QgrXYY3jU8dvEGl6oZ0Gt.jpg" data-cap="Conference attendees from the partner organizations working on the pilot in Haiti and internationally."></figure></div>
+  <div class="full-bleed"><figure class="ph full natural" data-photo="QgrXYY3jU8dvEGl6oZ0Gt.jpg" data-cap="Workshop attendees from the partner organizations working on the pilot in Haiti and internationally."></figure></div>
 </section>
+<div id="takeaways" hidden>
+<div class="takeaway" data-stop="1">
+<p>This trip started in the north at the city of Cap-Haïtien, where we landed. After a quick breakfast of Haitian spaghetti, we hit the road toward the Central Plateau.</p>
+</div>
+<div class="takeaway" data-stop="2">
+<figure class="ph" data-photo="64b0d917-0255-44da-bebf-3100ee184fe6.jpeg" data-cap="The view from our hotel in Hinche. The town sits in the middle of the Central Plateau, an inland farming region of small plots and rolling hills, and was our base for two days of site visits."></figure>
+<p>After a scenic, bumpy four hours we arrived in Hinche. Our hotel here was home base while we visited the local Acceso depot and two schools in the Summits Education program.</p>
+</div>
+<div class="takeaway" data-stop="3">
+<figure class="ph" data-photo="46acc3d5-d89c-4a2c-addb-3c63c16ecbc2.jpeg" data-cap="Meeting with smallholder farmers who sell through Acceso. They described what they grow, how their harvests reach the depot, and what makes selling to schools worth it for them."></figure>
+<p>We met with local farmers who were working with Acceso and discussed how and why they like this program. This meeting was very helpful in better understanding the supply chain from smallholder farmer to school children's meals. We also got to see part of the process ourselves and hear firsthand about what is going on and what can be improved.</p>
+<figure class="ph" data-photo="nII2zjOXa99Ixbtx03cWc.jpeg" data-cap="Sacks of peanuts at the Acceso depot. Harvests from many small farms are pooled here so they can be sold in the volumes that schools and other buyers need."></figure>
+<p class="crop-note"><span class="eyebrow">In storage during our visit</span> <span class="crop"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 19c2-8 7-13 16-15-1.5 9-7 14-16 15z"/><circle cx="9" cy="14.5" r="1.4"/><circle cx="12.4" cy="11" r="1.4"/><circle cx="15.6" cy="7.6" r="1.4"/></svg>Black beans</span> <span class="crop"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2c2.6 0 4.3 2 4.3 4.3 0 1.6-.9 2.5-.9 4.5s.9 2.9.9 4.5c0 2.3-1.7 4.3-4.3 4.3s-4.3-2-4.3-4.3c0-1.6.9-2.5.9-4.5s-.9-2.9-.9-4.5c0-2.3 1.7-4.3 4.3-4.3z"/><path d="M10.5 7.5h.01M13.5 9h.01M10.5 15h.01M13.5 16.5h.01"/></svg>Peanuts</span></p>
+<p>This is the Acceso depot for the area. Acceso runs depots across the country wherever it works. Each one is a collection point for local farmers: their harvests are pooled here, then shipped to wherever the order is going, whether that's a market, a school, or another buyer.</p>
+</div>
+<div class="takeaway" data-stop="4">
+<figure class="ph" data-photo="e93c60eb-8eae-47f0-8e5c-a91cc4d8bd7b.jpeg" data-cap="The kitchen at the first school, where staff cook about 350 meals a day. Every ingredient bought locally here is a sale for a Haitian farmer."></figure>
+<p>Our first school visit, to <a href="https://www.summits.org/school/communautaire-saint-paul-morne-thomonde" target="_blank" rel="noopener noreferrer">École Communautaire Saint Paul</a> in Morne Thomonde, happened to coincide with a teacher training seminar. Compared with other schools in the region, this one was relatively well built, though it still faced its share of challenges. Staff emphasized how much school meals matter. For many families, a guaranteed meal is a strong reason to send children to school, and students who aren't hungry are better able to concentrate and learn.</p>
+</div>
+<div class="takeaway" data-stop="5">
+<figure class="ph" data-photo="36b7d2fa-a881-4597-98ed-ba40ff532988.jpeg" data-cap="The second school, where much of the campus is still open-air. New buildings will add classrooms along with space to store and prepare food."></figure>
+<p>The second school, <a href="https://www.summits.org/school/communautaire-nouvelle-generation-moge" target="_blank" rel="noopener noreferrer">École Communautaire Nouvelle Génération</a> in Mogé, was a sharp contrast to the first. It had far less infrastructure, but the site was busy with major construction. Once finished, the new buildings will make room for more students and give the school modern spaces for storing and preparing food, a big step toward making daily meals more reliable.</p>
+<figure class="ph" data-photo="b2a4a79d-dbae-45d1-837a-8c9fc70cc497.jpeg" data-cap="The visiting team with the school principal and the local benefactor (front) who donated his own land so the school could grow."></figure>
+<p>Much of the school's growth is thanks to the man standing in front. A member of the local community, he donated his own land so the school could expand. Education matters deeply to him, and he took it upon himself to help build a campus where students can learn and count on a daily meal.</p>
+</div>
+<div class="takeaway" data-stop="6">
+<figure class="ph" data-photo="zADd3-utBTmINcTdiw3W6.jpeg" data-cap="Meds &amp; Food for Kids, outside Cap-Haïtien. The factory turns peanuts into ready-to-use therapeutic food, and trains local farmers who supply it."></figure>
+<p class="crop-note"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2c2.6 0 4.3 2 4.3 4.3 0 1.6-.9 2.5-.9 4.5s.9 2.9.9 4.5c0 2.3-1.7 4.3-4.3 4.3s-4.3-2-4.3-4.3c0-1.6.9-2.5.9-4.5s-.9-2.9-.9-4.5c0-2.3 1.7-4.3 4.3-4.3z"/><path d="M10.5 7.5h.01M13.5 9h.01M10.5 15h.01M13.5 16.5h.01"/></svg><span class="eyebrow">Common thread</span> The same crop we saw stacked at the Acceso depot, the peanut, is the base of Meds &amp; Food for Kids' main product.</p>
+<p>Meds &amp; Food for Kids was founded in 2003 by pediatrician Dr. Patricia Wolff to fight child malnutrition in Haiti. Its main products are peanut-based therapeutic foods that need no refrigeration or clean water to use. Its factory outside Cap-Haïtien opened in 2012. It produces all the therapeutic food used in Haiti and ships to 14 other countries through UNICEF. Run by a team of nearly 100 and supported by the local farmers it trains, the organization has treated more than one million children and mothers.</p>
+</div>
+<div class="takeaway" data-stop="7">
+<p>The workshop brought the partner organizations together for two days of meetings and breakout sessions. We reviewed the work done so far, but most of the time went to moving the project forward and agreeing on next steps.</p>
+</div>
+</div>
 <section class="wrap partners-section" aria-labelledby="partners-h">
   <div class="wide">
     <div class="section-head"><h2 id="partners-h">The partners behind the pilot</h2></div>
@@ -482,6 +489,7 @@ html.lenis,html.lenis body{height:auto}
   <p>George Washington University team: Erica Gralla (principal investigator), Sydney Pryor, Michael Mann, and Caitlin Grady, with student researchers Samuel Alten, Mike Chirico, Ian Milko, Jack Ploshnick, and Andrea Villarreal Quintero.</p>
 </div><div class="wide row">
   <span>Crisis-Resilient School Meals · Global Food Institute, George Washington University</span>
+  <span>Site by Samuel Alten · <a href="https://github.com/Salten99" target="_blank" rel="noopener noreferrer">GitHub: Salten99</a></span>
   <span>Base map: Natural Earth · Driving route: OSRM, © OpenStreetMap contributors</span>
 </div></footer>
 
@@ -517,7 +525,7 @@ const STOPS = [
     text:"Cap-Haïtien, a coastal city on Haiti's northern shore, is home to the region's main airport and was where our week began." },
   { title:"Hinche", where:"Centre", lat:19.1447745, lng:-72.0099921, zoom:10,
     photos:[["c2641a38-e016-4171-9c0b-7a7da89bf902.jpeg","Hinche, capital of the Centre department and our base for visits to the depot and schools nearby."]], role:"Home base · Central Plateau farm country",
-    text:"Hinche is a key town in Haiti's Central Plateau, a key region of this project. It served as our home base for two days while we visited facilities in the surrounding area." },
+    text:"Hinche, capital of the Centre department, sits at the heart of the Central Plateau, the region this project focuses on. It was our home base for two days while we visited sites nearby." },
   { title:"Thomonde", where:"Acceso depot, Centre", lat:19.02038, lng:-71.97008, zoom:11,
     photos:[["40ac48cb-40a8-4bf0-bacc-7addb61a3496.jpeg","Inside the Acceso depot near Thomonde, where black beans and peanuts from partner farmers were in storage."]], role:"Aggregation · black beans and peanuts",
     text:"Just outside Hinche, we stopped at one of Acceso's depots. Here, produce from multiple partner farmers are brought together, sorted, and prepared for shipment to buyers. During our visit, black beans and peanuts were in storage." },
@@ -532,7 +540,7 @@ const STOPS = [
     text:"We also toured the Meds & Food for Kids warehouse and production facility. Seeing how much this one site contributes to global relief efforts was remarkable, and we were grateful for the chance to see it up close." },
   { title:"Caracol", where:"Trou du Nord, Nord-Est", lat:19.65845, lng:-72.01648, zoom:10,
     photos:[["3a236885-10ae-473f-aab0-64c6d9e36a9c.jpeg","Partners gathered in Caracol to review progress on the school meals pilot."],["3fa857fc-9823-4e38-8b32-fd8281ca9bc3.jpeg","Planning next steps for moving more Haitian-grown food into school meals."]], role:"Coordination · six partner organizations",
-    text:"The week built toward our conference, which brought together representatives from six organizations working both in Haiti and internationally. It was a chance to connect all the work that had been done so far and to prepare for next steps." }
+    text:"The week built toward our workshop, which brought together representatives from six organizations working both in Haiti and internationally. It was a chance to connect all the work that had been done so far and to prepare for next steps." }
 ];
 
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
@@ -545,7 +553,9 @@ document.getElementById("logos").innerHTML = LOGOS.map(([f, name]) => f.includes
   : `<figure><img src="${photo(f)}" alt="${esc(name)}" loading="lazy"></figure>`).join("");
 document.querySelectorAll("figure.ph[data-photo]").forEach(fig => {
   const cap = fig.dataset.cap || "";
-  fig.innerHTML = `<img src="${photo(fig.dataset.photo)}" alt="${esc(cap)}" loading="lazy" data-zoom>` + (cap ? `<figcaption>${esc(cap)}</figcaption>` : "");
+  const img = `<img src="${photo(fig.dataset.photo)}" alt="${esc(cap)}" loading="lazy" data-zoom>`;
+  fig.innerHTML = (fig.classList.contains("natural") ? img : `<div class="frame" style="--bg:url('${photo(fig.dataset.photo)}')">${img}</div>`)
+    + (cap ? `<figcaption>${esc(cap)}</figcaption>` : "");
 });
 
 /* Tour cards */
@@ -553,8 +563,8 @@ const stepsEl = document.getElementById("steps");
 stepsEl.innerHTML =
   `<div class="step" data-i="-1"><div class="card"><div class="body">
      <h3>Seven stops, north to the plateau and back</h3>
-     <p>We landed in Cap-Haïtien, drove four hours south to Hinche, spent two days visiting sites in the Central Plateau, then returned north for Meds &amp; Food for Kids and the partner conference in Caracol.</p>
-     <p class="hint">Scroll to follow the route, or pick a stop below or a pin on the map. Click any photo to see it larger.</p>
+     <p>We landed in Cap-Haïtien, drove four hours south to Hinche, spent two days visiting sites in the Central Plateau, then returned north for Meds &amp; Food for Kids and the partner workshop in Caracol.</p>
+     <p class="hint">Scroll to follow the route, or pick a stop below or a pin on the map. Open "What we took away" on any stop for our notes, and click a photo to see it larger.</p>
      <ol class="overview-list">${STOPS.map((s,i)=>`<li><button type="button" data-go="${i}"><span class="num">${i+1}</span><span>${esc(s.title)}</span></button></li>`).join("")}</ol>
    </div></div></div>` +
   STOPS.map((s,i) => `
@@ -563,8 +573,8 @@ stepsEl.innerHTML =
       <h3><span class="num">${i+1}</span><span>${esc(s.title)}</span></h3>
       <p class="card-meta"><span class="where">${esc(s.where)}</span><span class="role-chip">${esc(s.role)}</span></p>
     </div>
-    <div class="media" data-i="${i}" data-p="0">
-      <img src="${photo(s.photos[0][0])}" alt="${esc(s.photos[0][1])}" loading="lazy" data-zoom style="object-position:${s.photos[0][2]||"50% 50%"}">
+    <div class="media frame" data-i="${i}" data-p="0" style="--bg:url('${photo(s.photos[0][0])}')">
+      <img src="${photo(s.photos[0][0])}" alt="${esc(s.photos[0][1])}" loading="lazy" data-zoom>
       ${s.photos.length>1 ? `<span class="count">1 / ${s.photos.length}</span><div class="pager"><button type="button" data-dir="-1" aria-label="Previous photo"><svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" data-dir="1" aria-label="Next photo"><svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6"/></svg></button></div>` : ""}
     </div>
     <p class="photo-cap">${esc(s.photos[0][1])}</p>
@@ -573,12 +583,15 @@ stepsEl.innerHTML =
     </div>
   </article></div>`).join("");
 
-/* A portrait photo switches its frame to 3:4 so it isn't cropped to landscape. */
-function fitFrame(img){
-  const set = () => img.closest(".media").classList.toggle("tall", img.naturalHeight > img.naturalWidth * 1.1);
-  img.complete && img.naturalWidth ? set() : img.addEventListener("load", set, { once:true });
-}
-stepsEl.querySelectorAll(".media img").forEach(fitFrame);
+/* Each stop's notes from the trip open in a "What we took away" dropdown under its card. */
+const CHEVRON = '<svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6l6 6-6 6"/></svg>';
+document.querySelectorAll("#takeaways .takeaway").forEach(t => {
+  const card = document.querySelector(`#stop-${t.dataset.stop} .card`); if (!card) return;
+  const d = document.createElement("details"); d.className = "takeaways";
+  d.innerHTML = `<summary>${CHEVRON}What we took away</summary>`;
+  t.classList.add("takeaway-body"); d.appendChild(t); card.appendChild(d);
+});
+document.getElementById("takeaways").remove();
 
 stepsEl.addEventListener("click", e => {
   const b = e.target.closest(".pager button");
@@ -590,7 +603,7 @@ stepsEl.addEventListener("click", e => {
     img.classList.add("swap");
     pre.onload = pre.onerror = () => {
       if (+m.dataset.p !== p) return;
-      img.src = pre.src; img.alt = next[1]; img.style.objectPosition = next[2] || "50% 50%"; zoomable(img); fitFrame(img);
+      img.src = pre.src; img.alt = next[1]; m.style.setProperty("--bg", `url('${pre.src}')`); zoomable(img);
       requestAnimationFrame(() => img.classList.remove("swap"));
     };
     pre.src = photo(next[0]);
