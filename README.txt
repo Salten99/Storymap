@@ -13,7 +13,6 @@ Upload the whole folder (index.html + photos) to any web host, for example:
 
 GOOD TO KNOW
   - All photos are inside the photos folder; nothing depends on the original StoryMap.
-  - The page needs an internet connection for its fonts, the interactive map, and the
-    driving route. Without one, the text and photos still show, but the map stays blank.
+  - The page needs an internet connection for its fonts and the interactive map. Without one, the text and photos still show, but the map stays blank.
   - All text lives in index.html. The trip stops (titles, captions, coordinates, photos)
     are in the STOPS list near the bottom of that file.
